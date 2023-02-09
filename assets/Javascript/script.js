@@ -9,15 +9,33 @@ encriptar.addEventListener('click', encript);
 descriptografar.addEventListener('click', descript);
 copiarTxt.addEventListener('click', copiar);
 
+const convertions = {
+
+    'e': 'enter',
+    'i': 'imes',
+    'a': 'ai',
+    'o': 'ober',
+    'u': 'ufat',
+
+    'E': 'entre',
+    'I': 'semi',
+    'A': 'iiaa',
+    'O': 'breo',
+    'U': 'fatu',
+};
+
+
+
 function encript() {
     if( txtArea.value.length > 0) {
         const txtEncript = txtArea.value;
-        const response = txtEncript
-        .replaceAll('e', 'enter')
-        .replaceAll('i', 'imes')
-        .replaceAll('a','ai')                                
-        .replaceAll('o','ober')                                
-        .replaceAll('u','ufat');
+        
+        // percorre todas as conversões e substitui 'key' por 'value'
+        Object.keys(convertions).forEach(key => {
+            txtEncript = txtEncript.replaceAll(key, convertions[key]);
+        })
+
+        const response = txtEncript;
 
         txtResponse.innerHTML = response;
         txtArea.value = "";
@@ -30,12 +48,13 @@ function encript() {
 function descript() {
     if (txtArea.value.length > 0) {
         const txtDescript = txtArea.value;
-        const response = txtDescript
-        .replaceAll('enter', 'e')
-        .replaceAll('imes', 'i')
-        .replaceAll('ai','a')
-        .replaceAll('ober','o')
-        .replaceAll('ufat','u');
+        
+        // percorre de trás para frente todas as conversões e substitui o 'value' por 'key' 
+        Object.keys(convertions).reverse().forEach(key => {
+            txtDescript = txtDescript.replaceAll(convertions[key], key);
+        })
+
+        const response = txtDescript;
 
         txtResponse.innerHTML = response;
         txtArea.value = "";
